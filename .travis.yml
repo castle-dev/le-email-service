@@ -1,0 +1,21 @@
+language: node_js
+before_install:
+  - npm install -g gulp mocha
+  - npm install
+  - npm test
+install:
+  - 'git config --global user.email "travis-ci@entercastle.com"'
+  - 'git config --global user.name "Travis Castle"'
+script:
+  - gulp docs
+  - cd docs
+  - git init
+  - 'git remote add origin "https://${GH_TOKEN}@github.com/castle-dev/le-email-service.git"'
+  - git checkout -B gh-pages
+  - git add .
+  - 'git commit -m "Updating documentation"'
+  - 'git push origin gh-pages -fq > /dev/null'
+env:
+  global:
+    - ENVIRONMENT=staging
+    - secure: v1AlQR6zNNxVMAy3urDOpmXa8OBusl7y/xEFodeNZ6S/4Ab8sJKVMd4K2vEKypXjtiCQF+ctAy5bzsDrIm8XSgMiAtA65ekrRj1UJ/xu6pRlOeHOy64jCqO2uR3XpazhIwAC/JZrxqO8cjm/5a/JR3E7LK5X+kCh5mExXYGf5lruqMBnuqTgNanoG4SqqUX2h+IEWqgu/GgEwclUwKvBfB3F/pb1kLbahizCx2DM6/mrq1ucc3VLuEz3/prd1QMfsBB725oeSqqioC0ififNC5ohGsyimHXB2mgI5NRCrg70TlEJ6A2qbbEakLx0BTVEAUvxrBEl4o8H28nfscO1/dbhBcDh6k9xxDxWI/EaomgEVPMz8sPewW74nhtGM4SZSN8QHIGl3cAj2sqcckQ1jHO2/Qsbd6Bo56I0SuUr3keV3Zf+Zp0kzGB93mTq/ooYmG1E2PQb3ogV3MAaeKNm/ll7hTHWvcUq/Q1cy1j5qpQ6FIjWqzYtjxLKXFbnG3JN2SpJOzNfFk2ZmaI4iTbe12+JIZGPe6QEyluIhyGw2/E3fOdvRqAhStp2sxMu68wfCyYcGVODfAR+5t1LpT7t9jQf2sJOum5TsiQaeGpbD7KmTq7fLaCpL0EmImfJ4CM1UhDQRliVpENkVmPmytaR4k/c3Ju3hSjQq96RPWNcy1k=
