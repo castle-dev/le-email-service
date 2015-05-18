@@ -10,7 +10,15 @@ le-email-service
 ## Usage
 
 ```
-  //TODO
+  var storage = /* initialize storage service */
+  var provider = /* initialize email provider */
+  var EmailService = require('le-email-service');
+  var email = new EmailService(provider, storage, 'from@email.com');
+
+  email.sendHtml('to@email.com', 'Subject', '<h1>Hello!</h1>')
+  .then(function (record) {
+    ...
+  });
 ```
 
 ## Tests
