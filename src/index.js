@@ -32,6 +32,7 @@ var EmailService = function (provider, storage, from) {
     .then(function () {
       var record = _storage.createRecord('Email');
       return record.update({
+        from: _from,
         to: to,
         subject: subject,
         html: html
@@ -55,6 +56,7 @@ var EmailService = function (provider, storage, from) {
     .then(function () {
       var record = _storage.createRecord('Email');
       return record.update({
+        from: _from,
         to: to,
         template: id
       }).then(function () { return record });
