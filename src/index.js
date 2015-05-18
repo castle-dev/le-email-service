@@ -22,7 +22,7 @@ var EmailService = function (provider, storage, from) {
    * @param {string} to the email address of the recipient
    * @param {string} subject the subject line of the email
    * @param {string} html the html content
-   * @returns {record}
+   * @returns {promise} resolves with the newly created email record
    */
   this.sendHtml = function (to, subject, html) {
     if (!to) { return q.reject(new Error('To email required')); }
@@ -46,7 +46,7 @@ var EmailService = function (provider, storage, from) {
    * @param {string} to the email address of the recipient
    * @param {string} id the unique identifier of the template
    * @param {Object} data the key/value pairs to inject
-   * @returns {record}
+   * @returns {promise} resolves with the newly created email record
    */
   this.sendTemplate = function (to, id, data) {
     if (!to) { return q.reject(new Error('To email required')); }
