@@ -42,4 +42,8 @@ describe('e2e tests::', function () {
     var promise = email.sendTemplate('email@domain.com', 'invalid-template-id');
     return expect(promise).to.eventually.be.rejected;
   });
+  it('should not send emails with reply-to specified', function () {
+    var promise = email.sendTemplate('bob@domain.com', 'welcome', {name: 'Bob'}, 'support@domain.com');
+    return expect(promise).to.eventually.be.fulfilled;
+  });
 });

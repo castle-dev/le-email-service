@@ -22,13 +22,14 @@ var EmailService = function (provider, storage, from) {
    * @param {string} to the email address of the recipient
    * @param {string} subject the subject line of the email
    * @param {string} html the html content
+   * @param {string} replyTo (optional) the reply-to email address
    * @returns {promise} resolves with the newly created email record
    */
-  this.sendHtml = function (to, subject, html) {
+  this.sendHtml = function (to, subject, html, replyTo) {
     if (!to) { return q.reject(new Error('To email required')); }
     if (!subject) { return q.reject(new Error('Subject required')); }
     if (!html) { return q.reject(new Error('HTML required')); }
-    return _provider.sendHtml(_from, to, subject, html)
+    return _provider.sendHtml(_from, to, subject, html, replyTo)
     .then(function () {
       var record = _storage.createRecord('Email');
       return record.update({
@@ -47,12 +48,13 @@ var EmailService = function (provider, storage, from) {
    * @param {string} to the email address of the recipient
    * @param {string} id the unique identifier of the template
    * @param {Object} data the key/value pairs to inject
+   * @param {string} replyTo (optional) the reply-to email address
    * @returns {promise} resolves with the newly created email record
    */
-  this.sendTemplate = function (to, id, data) {
+  this.sendTemplate = function (to, id, data, replyTo) {
     if (!to) { return q.reject(new Error('To email required')); }
     if (!id) { return q.reject(new Error('Template ID required')); }
-    return _provider.sendTemplate(_from, to, id, data)
+    return _provider.sendTemplate(_from, to, id, data, replyTo)
     .then(function () {
       var record = _storage.createRecord('Email');
       return record.update({
