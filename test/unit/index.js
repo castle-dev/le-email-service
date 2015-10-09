@@ -57,4 +57,14 @@ describe('unit tests::', function () {
     expect(provider.sendTemplate).to.have.been.called;
     return expect(promise).to.eventually.be.fulfilled;
   });
+  it('should send template emails with subjects', function () {
+    var to = 'recipient@email.com';
+    var id = 'welcome';
+    var data = {};
+    var replyTo;
+    var subject = 'Hello';
+    var promise = service.sendTemplate(to, id, data, replyTo, subject);
+    expect(provider.sendTemplate).to.have.been.calledWith(fromEmail, to, id, data, replyTo, subject);
+    return expect(promise).to.eventually.be.fulfilled;
+  });
 });

@@ -49,12 +49,13 @@ var EmailService = function (provider, storage, from) {
    * @param {string} id the unique identifier of the template
    * @param {Object} data the key/value pairs to inject
    * @param {string} replyTo (optional) the reply-to email address
+   * @param {string} subject (optional) the subject of the email
    * @returns {promise} resolves with the newly created email record
    */
-  this.sendTemplate = function (to, id, data, replyTo) {
+  this.sendTemplate = function (to, id, data, replyTo, subject) {
     if (!to) { return q.reject(new Error('To email required')); }
     if (!id) { return q.reject(new Error('Template ID required')); }
-    return _provider.sendTemplate(_from, to, id, data, replyTo)
+    return _provider.sendTemplate(_from, to, id, data, replyTo, subject)
     .then(function () {
       var record = _storage.createRecord('Email');
       return record.update({
