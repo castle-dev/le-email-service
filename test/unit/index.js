@@ -32,8 +32,8 @@ describe('unit tests::', function () {
   it('should require a provider', function () {
     expect(function () { new EmailService(); }).to.throw('Email provider required');
   });
-  it('should require a storage service', function () {
-    expect(function () { new EmailService(provider); }).to.throw('Storage service required');
+  it('should not require a storage service', function () {
+    expect(function () { new EmailService(provider); }).to.not.throw;
   });
   it('should require a from email', function () {
     expect(function () { new EmailService(provider, mockStorageService); }).to.throw('From email address required');
