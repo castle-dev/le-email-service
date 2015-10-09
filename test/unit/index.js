@@ -32,8 +32,8 @@ describe('unit tests::', function () {
   it('should require a provider', function () {
     expect(function () { new EmailService(); }).to.throw('Email provider required');
   });
-  it('should require a storage service', function () {
-    expect(function () { new EmailService(provider); }).to.throw('Storage service required');
+  it('should not require a storage service', function () {
+    expect(function () { new EmailService(provider); }).to.not.throw;
   });
   it('should require a from email', function () {
     expect(function () { new EmailService(provider, mockStorageService); }).to.throw('From email address required');
@@ -55,6 +55,16 @@ describe('unit tests::', function () {
   it('should send template emails', function () {
     var promise = service.sendTemplate('recipient@email.com', 'welcome');
     expect(provider.sendTemplate).to.have.been.called;
+    return expect(promise).to.eventually.be.fulfilled;
+  });
+  it('should send template emails with subjects', function () {
+    var to = 'recipient@email.com';
+    var id = 'welcome';
+    var data = {};
+    var replyTo;
+    var subject = 'Hello';
+    var promise = service.sendTemplate(to, id, data, replyTo, subject);
+    expect(provider.sendTemplate).to.have.been.calledWith(fromEmail, to, id, data, replyTo, subject);
     return expect(promise).to.eventually.be.fulfilled;
   });
 });
