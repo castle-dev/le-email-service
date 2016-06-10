@@ -28,6 +28,7 @@ var EmailService = function (provider, storage, from) {
     if (!to) { return q.reject(new Error('To email required')); }
     if (!subject) { return q.reject(new Error('Subject required')); }
     if (!html) { return q.reject(new Error('HTML required')); }
+    subject = subject + ' - Thread ID: ' + generateUUID();
     return _provider.sendHtml(_from, to, subject, html, replyTo)
     .then(function () {
       if (_storage) {
@@ -41,6 +42,17 @@ var EmailService = function (provider, storage, from) {
       }
     });
   };
+
+  function generateUUID() {
+    var d = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = (d + Math.random()*16)%16 | 0;
+      d = Math.floor(d/16);
+      return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+  };
+
   /**
    * Sends a template email
    * @function sendTemplate
