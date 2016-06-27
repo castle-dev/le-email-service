@@ -24,11 +24,14 @@ var EmailService = function (provider, storage, from) {
    * @param {string} replyTo (optional) the reply-to email address
    * @returns {promise} resolves with the newly created email record
    */
-  this.sendHtml = function (to, subject, html, replyTo) {
+  this.sendHtml = function (to, subject, html, replyTo, threadID) {
     if (!to) { return q.reject(new Error('To email required')); }
     if (!subject) { return q.reject(new Error('Subject required')); }
     if (!html) { return q.reject(new Error('HTML required')); }
-    subject = subject + ' - Thread ID: ' + generateUUID();
+    if(!threadID) {
+      threadID = generateUUID();
+    }
+    subject = subject + ' - Thread ID: ' + threadID;
     return _provider.sendHtml(_from, to, subject, html, replyTo)
     .then(function () {
       if (_storage) {
