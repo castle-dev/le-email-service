@@ -1,6 +1,6 @@
 {
   "name": "le-email-service",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Send emails",
   "main": "src/index.js",
   "scripts": {
