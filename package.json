@@ -3,6 +3,7 @@
   "version": "1.1.0",
   "description": "Send emails",
   "main": "src/index.js",
+  "typings": "src/email-service.d.ts",
   "scripts": {
     "test": "gulp test"
   },
@@ -45,6 +46,7 @@
     "travis-encrypt": "^1.1.1"
   },
   "dependencies": {
-    "q": "^1.4.1"
+    "q": "^1.4.1",
+    "ts-promise": "0.3.0"
   }
 }
